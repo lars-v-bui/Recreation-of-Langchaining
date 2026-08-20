@@ -49,8 +49,6 @@ def report_answer(thequery, result):
     print()
     return
 
-#tools = [prolog_query]
-
 print("Enter your text. Start be describing the facts and rules of your knowledge domain\n\
       as you know them. Type END on a line by itself to finish:")
 
@@ -98,7 +96,6 @@ prompt = ChatPromptTemplate.from_messages(
 
 llm = ChatOllama(model="qwen3", temperature=0)
 structured_llm = llm.with_structured_output(PrologOutput)
-#structured_llm_with_tools = structured_llm.bind_tools(tools)
 
 chain = prompt | structured_llm
 
@@ -106,6 +103,9 @@ result = chain.invoke({"knowledge" : input_knowledge,
                         "question" : input_question,
                         "instructions" : input_instructions
 })
+
+
+# Test to confirm we have correct output for KB and query.
 
 print()
 print(result.knowledge_base)
